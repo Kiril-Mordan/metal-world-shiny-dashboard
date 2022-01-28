@@ -1,0 +1,27 @@
+{
+    "id": "6F8719AB",
+    "path": "~/Documents/UEP/II stopień/5 rok/Informatyczne narzędzia wizualizacji danych/MW shiny app/data_prep.Rmd",
+    "project_path": "data_prep.Rmd",
+    "type": "r_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1643295973027.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "chunk_output_type": "inline",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "62,181",
+        "scrollLine": "57"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1643331433,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1643331433279,
+    "read_only": false,
+    "read_only_alternatives": []
+}

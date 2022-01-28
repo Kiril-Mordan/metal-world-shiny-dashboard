@@ -1,0 +1,117 @@
+---
+title: "Preparing scraped data for shiny app"
+output: html_notebook
+---
+
+```{r}
+library(rvest)
+library(stringr)
+library(parallel)
+library(splitstackshape)
+library(tidyverse)
+library(tidyr)
+library(xml2)
+library(parallel)
+library(data.table)
+library(shiny)
+source("scrape_metalstorm")
+```
+
+Data was scraped from metalstorm.net
+
+```{r}
+scraped <- scrape_metalstorm()
+
+scraped_data <- rbindlist(scraped)
+
+saveRDS(scraped_data,"data/metal_bands_scraped")
+```
+
+
+```{r}
+imported <- readRDS("data/metal_bands_scraped")
+dt <- as.data.table(imported)
+```
+
+
+```{r}
+head(dt)
+```
+```{r}
+data.frame("Number of bands" = nrow(dt),"Unique styles" = length(unique(dt$style)), "Countries" = length(unique(dt$origin)), "Years range" = paste0(min(dt$formed,na.rm = T),"-",max(dt$split,na.rm = T)),"Fans on metalstorm" = sum(dt$fans))
+```
+
+There are 6 variables available on metalstorm.net:
+
+1. band_name - names of the metal band 
+2. style - style(s) of metal performed by the bands
+3. origin - country(ies) the band comes from
+4. formed - year of formation
+5. split - year of split (if band doesn't exist anymore)
+6. fans - number of fans on metalstorm.net 
+
+Assumptions: 
+
+1. Number of fans on metalstorm.net are representitive
+2. When no year of formation is available, the last year from the data is assigned
+3. Some countries had to be renamed and bands of other assigned to other due to limitations of the ggplot2 map_data() function 
+4. When one country is provided in the data, band is assumed to be "national" for the sake of simplification even though it might have members from different countries, and for the that reason "national" "international" distiction may be flawed 
+5. Number in the world map label are on the log scale so colours will be more distinct visually
+
+Warning: 
+
+Shiny app may not work on Windows due to the use of the mclapply function from parallel package. If the problem occures, pls use Metal_World_win, which uses foreach but runs slower 
+
+
+cleaning styles column
+```{r}
+dt$style <- gsub("E,B,M","EBM",dt$style)
+dt$style <- gsub("A,Cappella","A_Cappella",dt$style)
+dt$style <- gsub("-,","-",dt$style)
+dt$style <- gsub("'n,","'n ",dt$style)
+dt$style <- gsub(",N',"," N' ",dt$style)
+```
+
+
+cleaning origins column
+```{r}
+dt$origin <- gsub("United Kingdom","UK",dt$origin)
+dt$origin <- gsub("UAE","United Arab Emirates",dt$origin)
+dt$origin <- gsub("Gibraltar","UK",dt$origin) # no Gibraltar in ggplot2 map_data("world")
+dt$origin <- gsub("Hong Kong","China",dt$origin)
+dt$origin <- gsub("Slovak Republic","Slovakia",dt$origin)
+dt$origin <- gsub("The Netherlands","Netherlands",dt$origin)
+dt$origin <- gsub("Korea","South Korea",dt$origin) # Korea assumed to be South Korea
+dt$origin <- gsub(", South","",dt$origin)
+```
+
+managing data types
+
+```{r}
+dt$formed <- as.numeric(dt$formed)
+dt$split <- as.numeric(dt$split)
+```
+
+creating new columns
+
+```{r}
+origins <- str_split((dt$origin),',')
+
+n_origins <- sapply(1:nrow(dt),function(i){length(origins[[i]])})
+
+dt$colab <- ifelse(n_origins>1,"International","National")
+
+# if band doesn't have a year then the most resent from the data is assumed 
+
+dt$year <- ifelse(is.na(dt$formed),max(dt$formed,na.rm = T),dt$formed) 
+```
+
+
+```{r}
+clean <- dt
+
+saveRDS(clean,"metal_bands_shiny")
+```
+
+
+

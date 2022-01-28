@@ -1,0 +1,22 @@
+---
+title: "Data scraping"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+```{r}
+library(rvest)
+library(stringr)
+library(parallel)
+library(splitstackshape)
+library(tidyverse)
+library(tidyr)
+library(xml2)
+library(parallel)
+library(data.table)
+```
+
+
+
+

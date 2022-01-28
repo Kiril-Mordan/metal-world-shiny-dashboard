@@ -1,0 +1,1 @@
+"0","data.frame(""Number of bands"" = nrow(dt),""Unique styles"" = length(unique(dt$style)), ""Countries"" = length(unique(dt$origin)), ""Years range"" = paste0(min(dt$formed,na.rm = T),""-"",max(dt$split,na.rm = T)),""Fans on metalstorm"" = sum(dt$fans))"
