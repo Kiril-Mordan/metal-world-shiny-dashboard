@@ -1,9 +1,3 @@
----
-title: "Metal World Dashboard"
-output: 
-  html_document:
-    keep_md: true
----
 
 ![](example.png)
 
