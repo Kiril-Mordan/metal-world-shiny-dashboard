@@ -22,4 +22,4 @@ Assumptions:
 
 Warning: 
 
-Shiny app may not work on Windows due to the use of the mclapply function from parallel package. If the problem occures, pls use Metal_World_win, which uses foreach but runs slower 
+Shiny app may not work on Windows or run slower due to the use of the parallel package. 
