@@ -42,28 +42,25 @@ shinyServer(function(input, output) {
   
   DTR <- reactive({
 
-  if(input$status == "Active"){
-      active = is.na(DTT$split)
-      DTT <- DTT[active]
-  }else if(input$status == "Split"){
-      split = !is.na(DTT$split)
-      DTT <- DTT[split]
-  }
+    DTT_filtered <- DTT  # Copy the original data
     
-  
-  if(input$countries == "ALL"){
-    DTT <- DTT[year <= input$years]
-  }else{
-    DTT <- DTT[grepl(input$countries,DTT$origin),]
-    DTT <- DTT[year <= input$years]
-  }
-  
-  if(input$colab != "ALL"){
-    DTT <- DTT[colab == input$colab]
-  }
-  
-  
-  DTT
+    if (input$status == "Active") {
+      DTT_filtered <- DTT_filtered[is.na(DTT_filtered$split), ]
+    } else if (input$status == "Split") {
+      DTT_filtered <- DTT_filtered[!is.na(DTT_filtered$split), ]
+    }
+    
+    if (input$countries != "ALL") {
+      DTT_filtered <- DTT_filtered[grepl(input$countries, DTT_filtered$origin), ]
+    }
+    
+    DTT_filtered <- DTT_filtered[DTT_filtered$year <= input$years]
+    
+    if (input$colab != "ALL") {
+      DTT_filtered <- DTT_filtered[DTT_filtered$colab == input$colab, ]
+    }
+    
+    DTT_filtered
   })
   
   output$worldMap <- renderPlot({
@@ -113,18 +110,29 @@ shinyServer(function(input, output) {
     
     # draw the world map 
     
-    world %>%
+    plot <- world %>%
       merge(band_by_countries, by.x = "region", by.y = "origin", all.x = T) %>%
       arrange(group, order) %>%
       ggplot(aes(x = long, y = lat, group = group, fill = count)) +
-      geom_polygon(color = "grey", size = 0.2) +
+      geom_polygon(color = "grey", linewidth = 0.2) +
       scale_fill_gradientn(colours = viridis(10),name = "Number\nof bands\nin the country", trans = "log",
                            na.value = "grey90",labels = scales::number_format(accuracy = 1)) +
       
       theme_minimal() +
+      theme(
+        plot.margin = margin(0.5, 0.5, 0.5, 0.5, "cm"),
+        plot.background = element_rect(fill = "white"),
+        plot.title = element_text(hjust = 0.5, size = 14),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()
+      ) +
       theme(axis.text = element_blank(),
             axis.title = element_blank(),
             panel.grid = element_blank()) 
+    
+    #print("plot")
+    
+    plot
     
   })
   

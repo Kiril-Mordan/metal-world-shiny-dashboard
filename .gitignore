@@ -1,0 +1,8 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.tar
+.DS_Store
+.docker_temp*
+renv

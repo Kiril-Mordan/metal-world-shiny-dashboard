@@ -1,0 +1,18 @@
+# Use the official R base image for the run stage
+FROM r-base:4.3.1
+FROM my-shiny-app:latest
+
+# Set up the working directory
+WORKDIR /app
+
+# Copy your app files to the container (if not already copied in Part 1)
+COPY . .
+
+# Install the missing 'maps' package
+RUN R -e "install.packages('maps')"
+
+EXPOSE 3838
+
+# Expose and run the Shiny app on port 3838
+CMD ["R", "-e", "shiny::runApp(port=3838, host='0.0.0.0', 'Metal_world_shiny_app')"]
+
