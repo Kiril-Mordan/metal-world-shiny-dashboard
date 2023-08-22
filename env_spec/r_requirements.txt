@@ -1,0 +1,11 @@
+shiny
+data.table
+stringr
+ggplot2
+dplyr
+wordcloud
+wordcloud2
+viridis
+foreach
+doParallel
+maps
