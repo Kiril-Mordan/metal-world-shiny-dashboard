@@ -17,6 +17,7 @@ library(wordcloud2)
 library(viridis)
 library(foreach)
 library(doParallel)
+library(maps)
 
 
 

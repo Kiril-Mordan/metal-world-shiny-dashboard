@@ -33,19 +33,14 @@ git clone https://github.com/Kiril-Mordan/metal-world-shiny-dashboard.git
 cd metal-world-shiny-dashboard
 ```
 
-Build dependencies docker:
-
-```
-./docker_build.sh
-```
-
 Build docker for running: 
 
 ```
-docker compose up -d
+docker-compose build
+docker compose up
 ```
 
-You can access Metal-World-Dashboard at http://localhost:3000.
+You can access Metal-World-Dashboard at http://localhost:3838.
 
 To stop it, run:
 
@@ -76,3 +71,7 @@ Run the app locally:
 ```
 shiny::runApp("Metal_world_shiny_app/")
 ```
+
+Notes:
+
+* map may not show at first, resizing the browser windows generally helps

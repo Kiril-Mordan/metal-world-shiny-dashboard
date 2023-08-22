@@ -14,6 +14,7 @@ library(dplyr)
 library(wordcloud)
 library(wordcloud2)
 library(viridis)
+library(maps)
 
 DTT <- readRDS("../data/metal_bands_shiny")
 
