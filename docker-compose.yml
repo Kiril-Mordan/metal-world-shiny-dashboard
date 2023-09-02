@@ -1,8 +1,22 @@
 version: '3'
 services:
+  scraper:
+    build:
+      context: .
+      dockerfile: Dockerfile_scrape
+    volumes:
+      - scraper_data:/app/data # This mounts the /app/data directory as a volume
+
   shiny-app:
     build:
       context: .
       dockerfile: Dockerfile_run
     ports:
       - 3838:3838
+    depends_on:
+      - scraper
+    olumes:
+      - scraper_data:/app/data  # Mount the same volume to /app/data in the Shiny app container
+
+volumes:
+  scraper_data:  # Define the named volume
