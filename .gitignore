@@ -5,4 +5,3 @@
 *.tar
 .DS_Store
 .docker_temp*
-renv
