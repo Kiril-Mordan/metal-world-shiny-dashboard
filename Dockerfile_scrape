@@ -1,0 +1,14 @@
+# Use the official R base image for the run stage
+FROM r-base:4.3.1
+FROM kyriosskia/metal-world-shiny-app:latest
+
+# Set up the working directory
+WORKDIR /app
+
+# Copy your app files to the container (if not already copied in Part 1)
+COPY . .
+
+# Run metalstorm scraper
+
+CMD ["R", "-e", "source('src/scrape_metalstorm_data.R')"]
+

@@ -29,7 +29,9 @@ dtClists <- lapply(1:lenC, function(i){
        fans = sum(DTT[countries_select,"fans"]))
 })
 
-band_by_countries <- rbindlist(lapply(1:lenC, function(i){data.frame(origin = countries[i],count=dtClists[[i]]$count,fans=dtClists[[i]]$fans)}))
+band_by_countries <- rbindlist(lapply(1:lenC, function(i){data.frame(origin = countries[i],
+                                                                     count=dtClists[[i]]$count,
+                                                                     fans=dtClists[[i]]$fans)}))
 
 
 # Define UI for application that draws a histogram
