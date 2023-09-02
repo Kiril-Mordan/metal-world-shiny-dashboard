@@ -54,7 +54,7 @@ Make sure you have R installed on your system.
 
 Then, clone this repo and `cd` into it:
 
-``` r
+``` 
 git clone https://github.com/Kiril-Mordan/metal-world-shiny-dashboard.git
 cd metal-world-shiny-dashboard
 ```
@@ -82,4 +82,4 @@ Notes:
 
 * map may not show at first or have troubles refreshing itself, resizing the browser windows generally helps
 
-** the goal of the revisiting was to tryout some docker capabilities and make sure the app retains most of its original capabilities with little refactoring
+** the goal of the revisiting was to tryout some docker capabilities and make sure the app retains most of its original functionalities with little refactoring
