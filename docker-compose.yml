@@ -15,8 +15,8 @@ services:
       - 3838:3838
     depends_on:
       - scraper
-    olumes:
+    volumes:
       - scraper_data:/app/data  # Mount the same volume to /app/data in the Shiny app container
 
 volumes:
-  scraper_data:  # Define the named volume
+  scraper_data:

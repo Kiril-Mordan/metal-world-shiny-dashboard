@@ -28,14 +28,14 @@ You can run Metal-World-Dashboard on any x86 or arm64 system. Make sure you have
 
 Then, clone this repo and `cd` into it:
 
-```
+``` bash
 git clone https://github.com/Kiril-Mordan/metal-world-shiny-dashboard.git
 cd metal-world-shiny-dashboard
 ```
 
 Build docker for running: 
 
-```
+``` bash
 docker-compose build
 docker compose up
 ```
@@ -54,7 +54,7 @@ Make sure you have R installed on your system.
 
 Then, clone this repo and `cd` into it:
 
-```
+``` r
 git clone https://github.com/Kiril-Mordan/metal-world-shiny-dashboard.git
 cd metal-world-shiny-dashboard
 ```
@@ -62,16 +62,24 @@ cd metal-world-shiny-dashboard
 Make sure your path in R console is also set in the same directory and
 install dependencies with `renv.lock`:
 
-```
+``` r
 renv::restore()
+```
+
+Scrape latest data:
+
+``` r
+source("scr/scrape_metalstorm_data.R")
 ```
 
 Run the app locally:
 
-```
+``` r
 shiny::runApp("Metal_world_shiny_app/")
 ```
 
 Notes:
 
-* map may not show at first, resizing the browser windows generally helps
+* map may not show at first or have troubles refreshing itself, resizing the browser windows generally helps
+
+** the goal of the revisiting was to tryout some docker capabilities and make sure the app retains most of its original capabilities with little refactoring
